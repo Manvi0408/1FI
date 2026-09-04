@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  @apply bg-[#f7f7fb] text-slate-900 antialiased;
+}
+
+/* Left-to-right scrolling tagline ticker */
+@keyframes marquee {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+.animate-marquee {
+  animation: marquee 32s linear infinite;
+}
+
+/* Right-to-left card marquee */
+@keyframes marquee-rtl {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee-rtl {
+  animation: marquee-rtl 55s linear infinite;
+}
+.marquee-pause:hover .animate-marquee-rtl {
+  animation-play-state: paused;
+}
+
+/* 3D rotating logo ring */
+@keyframes spin3d {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+/* Cards rise up from below in 3D, one by one, on page open */
+@keyframes rise3d {
+  from {
+    opacity: 0;
+    transform: perspective(900px) translateY(52px) rotateX(-22deg);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(900px) translateY(0) rotateX(0deg);
+  }
+}
+.reveal-3d {
+  opacity: 0;
+  animation: rise3d 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal-3d {
+    animation: none;
+    opacity: 1;
+  }
+}
