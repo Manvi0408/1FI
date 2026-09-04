@@ -98,14 +98,14 @@ function Header() {
           <div className="ml-auto flex items-center gap-5">
             <form
               onSubmit={submitSearch}
-              className={`hidden md:flex items-center rounded-full pl-1 pr-4 h-12 w-[340px] ${light ? 'bg-white/15 ring-1 ring-white/30 backdrop-blur' : 'bg-slate-50 ring-1 ring-slate-200'}`}
+              className={`hidden md:flex items-center rounded-full pl-1 pr-3 h-10 w-[220px] ${light ? 'bg-white/15 ring-1 ring-white/30 backdrop-blur' : 'bg-slate-50 ring-1 ring-slate-200'}`}
             >
               <button
                 type="submit"
                 aria-label="Search"
-                className={`grid place-items-center h-10 w-10 rounded-full shrink-0 ${light ? 'bg-white text-brand-600' : 'bg-brand-600 text-white'}`}
+                className={`grid place-items-center h-8 w-8 rounded-full shrink-0 ${light ? 'bg-white text-brand-600' : 'bg-brand-600 text-white'}`}
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2" />
                   <path d="M20 20l-3.2-3.2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                 </svg>
@@ -115,7 +115,7 @@ function Header() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search for products"
-                className={`ml-3 flex-1 bg-transparent text-sm focus:outline-none ${light ? 'text-white placeholder:text-white/70' : 'text-slate-600 placeholder:text-slate-400'}`}
+                className={`ml-2 flex-1 bg-transparent text-[13px] focus:outline-none ${light ? 'text-white placeholder:text-white/70' : 'text-slate-600 placeholder:text-slate-400'}`}
               />
             </form>
 
