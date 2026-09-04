@@ -111,6 +111,19 @@ EMI plans are computed per variant at seed time (no-cost EMIs use an even split;
 interest-bearing plans use the reducing-balance EMI formula), then stored in the
 database. The seed catalogue lives in [`backend/seed/seedData.js`](backend/seed/seedData.js).
 
+## Deployment
+
+Deployed as three free pieces — **MongoDB Atlas** (database), **Render** (API),
+**Vercel** (frontend). Full click-by-click steps are in **[DEPLOY.md](DEPLOY.md)**.
+
+- `render.yaml` — Render Blueprint for the API (set `MONGODB_URI` in the dashboard).
+- `frontend/vercel.json` — Vercel config for the Vite SPA (set `VITE_API_BASE` to
+  the deployed API URL).
+
+```
+Browser ──▶ Vercel (React) ──fetch──▶ Render (Express) ──▶ Atlas (MongoDB)
+```
+
 ## Using a real MongoDB
 
 ```bash

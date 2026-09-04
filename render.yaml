@@ -1,0 +1,17 @@
+# Render Blueprint — deploys the Express API.
+# In Render: New + → Blueprint → connect the Manvi0408/1FI repo → Apply.
+# Then set MONGODB_URI (from MongoDB Atlas) in the service's Environment tab.
+services:
+  - type: web
+    name: 1fi-api
+    runtime: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: MONGODB_URI
+        sync: false # set this yourself in the Render dashboard (Atlas connection string)
+      - key: NODE_ENV
+        value: production
