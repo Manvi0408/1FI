@@ -48,11 +48,13 @@ function Header() {
   const navigate = useNavigate();
   const { count, setOpen } = useCart();
   const [query, setQuery] = useState('');
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const submitSearch = (e) => {
     e.preventDefault();
     const q = query.trim();
     if (q) navigate(`/search?q=${encodeURIComponent(q)}`);
+    setMenuOpen(false);
   };
 
   return (
@@ -98,7 +100,7 @@ function Header() {
           <div className="ml-auto flex items-center gap-5">
             <form
               onSubmit={submitSearch}
-              className={`hidden md:flex items-center rounded-full pl-1 pr-3 h-10 w-[220px] ${light ? 'bg-white/15 ring-1 ring-white/30 backdrop-blur' : 'bg-slate-50 ring-1 ring-slate-200'}`}
+              className={`hidden lg:flex items-center rounded-full pl-1 pr-3 h-10 w-[220px] ${light ? 'bg-white/15 ring-1 ring-white/30 backdrop-blur' : 'bg-slate-50 ring-1 ring-slate-200'}`}
             >
               <button
                 type="submit"
@@ -135,8 +137,72 @@ function Header() {
                 </span>
               )}
             </button>
+
+            {/* Mobile hamburger */}
+            <button
+              onClick={() => setMenuOpen((o) => !o)}
+              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={menuOpen}
+              className={`lg:hidden grid place-items-center h-11 w-11 rounded-full ${light ? 'text-white hover:bg-white/15' : 'text-slate-700 hover:bg-slate-100'}`}
+            >
+              {menuOpen ? (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
+              ) : (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
+              )}
+            </button>
           </div>
         </div>
+
+        {/* Mobile menu panel */}
+        {menuOpen && (
+          <div className="lg:hidden pb-4">
+            <div className="rounded-2xl bg-white p-4 shadow-xl ring-1 ring-slate-200">
+              <form
+                onSubmit={submitSearch}
+                className="flex items-center rounded-full bg-slate-50 pl-1 pr-3 h-11 ring-1 ring-slate-200"
+              >
+                <button
+                  type="submit"
+                  aria-label="Search"
+                  className="grid place-items-center h-9 w-9 shrink-0 rounded-full bg-brand-600 text-white"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2" />
+                    <path d="M20 20l-3.2-3.2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                  </svg>
+                </button>
+                <input
+                  type="text"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Search for products"
+                  className="ml-2 flex-1 bg-transparent text-sm text-slate-700 placeholder:text-slate-400 focus:outline-none"
+                />
+              </form>
+
+              <nav className="mt-3 flex flex-col">
+                {NAV.map((item) => (
+                  <NavLink
+                    key={item.label}
+                    to={item.to}
+                    end={item.to === '/'}
+                    onClick={() => setMenuOpen(false)}
+                    className={({ isActive }) => {
+                      const active = isActive && item.to !== '#' && item.label !== 'Catalog';
+                      return [
+                        'rounded-xl px-3 py-3 text-[15px] font-medium transition-colors',
+                        active ? 'bg-brand-50 text-brand-600' : 'text-slate-700 hover:bg-slate-100',
+                      ].join(' ');
+                    }}
+                  >
+                    {item.label}
+                  </NavLink>
+                ))}
+              </nav>
+            </div>
+          </div>
+        )}
       </div>
     </header>
   );
